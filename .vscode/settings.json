@@ -1,7 +1,0 @@
-{
-	"python.analysis.extraPaths": ["./api"],
-	"files.exclude": {
-		"**/__pycache__": true,
-		"**/.pytest_cache": true,
-	},
-}
