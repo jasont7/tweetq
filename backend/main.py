@@ -1,10 +1,13 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import snscrape.modules.twitter as snt
 import json
 import datetime as dt
 import calendar
 
 app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
 
 MAX_RESULTS = 20
 
