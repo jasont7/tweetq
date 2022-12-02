@@ -1,41 +1,42 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchRecentTweets } from './userRecentTweetsAPI';
 
-const initialState = {
-  status: 'idle',
-  user: '',
-  tweets: [],
-};
+async function fetchRecentTweets(user) {
+  const url = `http://localhost:8000/user/recent?user=${user}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
+}
 
 export const getUserRecentTweets = createAsyncThunk(
   'userRecentTweets/fetchRecentTweets',
   async (user) => {
-    const tweets = await fetchRecentTweets(user);
-    return { tweets, user };
+    const data = await fetchRecentTweets(user);
+    return { user, data };
   }
 );
+
+const initialState = {
+  status: 'idle',
+  user: '',
+  data: [],
+}
 
 export const userRecentTweetsSlice = createSlice({
   name: 'userRecentTweets',
   initialState,
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(getUserRecentTweets.pending, (state) => {
         state.status = 'loading';
         state.user = '';
-        state.tweets = [];
+        state.data = [];
       })
       .addCase(getUserRecentTweets.fulfilled, (state, action) => {
         state.status = 'idle';
         state.user = action.payload.user;
-        state.tweets = action.payload.tweets;
+        state.data = action.payload.data;
       });
   },
 });
-
-// export const { } = counterSlice.actions;
-
-export const selectUserRecentTweets = (state) => state.userRecentTweets;
 
 export default userRecentTweetsSlice.reducer;

@@ -5,27 +5,29 @@ import { store } from './redux/store';
 import App from './App';
 
 const container = document.createElement('div');
-container.id = 'foreground';
-
-const globalStyles = document.createElement("style");
-globalStyles.innerHTML = `
-  #${container.id} {
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 300px;
-    height: 100vh;
-    background: #ffffff;
-    border-left: 1px solid #c2c2c2;
-    z-index: 999999999;
-  }
-`;
+container.id = 'react-chrome-ext';
 document.body.appendChild(container);
-document.body.appendChild(globalStyles);
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  container
+let firstRender = true;
+if (firstRender) {
+  render(
+    <Provider store={store}>
+      <App url={window.location.href} />
+    </Provider>,
+    container
+  );
+  firstRender = false;
+}
+
+chrome.runtime.onMessage.addListener(
+  (request, sender, sendResponse) => {
+    if (request.message === "tab_updated") {
+      render(
+        <Provider store={store}>
+          <App url={request.url} />
+        </Provider>,
+        container
+      );
+    }
+  }
 );

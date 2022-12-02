@@ -1,30 +1,51 @@
-import React from 'react';
-import { Counter } from './components/counter/Counter';
-import { UserRecentTweets } from './components/user_recent_tweets/UserRecentTweets';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import UserContent from './components/UserContent';
+import { setUser } from './redux/reducers/userReducer';
 
-function App() {
+export default function App({ url }) {
+
+  const dispatch = useDispatch();
+
+  const urlObj = new URL(url);
+  const page = urlObj.pathname.replace(/\//g, "");
+
+  useEffect(() => {
+    if (page == '' || page == 'home') {
+      // TODO: home page
+    } else {
+      dispatch(setUser(page))
+    }
+  })
+
   return (
-    <div style={styles.app}>
-      <header style={styles.appHeader}>
-        {/* <Counter /> */}
-        <UserRecentTweets />
-      </header>
+    <div style={styles.appContainer}>
+      <div style={styles.contentContainer}>
+        {/* <HideToggle /> */}
+        {/* <Header /> */}
+        {/* <SearchBar /> */}
+        {/* { page === 'home' && <TimelineContent /> } */}
+        { page !== 'home' && <UserContent /> }
+      </div>
     </div>
   );
 }
 
 const styles = {
-  app: {
-    textAlign: 'center',
+  appContainer: {
+    display: 'block',
+    position: 'fixed',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+    fontSize: '14px',
+    right: 0,
+    top: 0,
+    width: '360px',
+    height: '100vh',
+    backgroundColor: '#000000',
+    color: '#FFFFFF',
+    // zIndex: 999999999,
   },
-  appHeader: {
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 'calc(10px + 2vmin)',
-  },
+  contentContainer: {
+    position: 'relative',
+  }
 }
-
-export default App;

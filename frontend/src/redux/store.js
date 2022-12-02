@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../components/counter/counterSlice';
-import userRecentTweetsReducer from '../components/user_recent_tweets/userRecentTweetsSlice'
+import userRecentTweetsReducer from './reducers/userRecentTweetsSlice';
+import userReducer from './reducers/userReducer';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    user: userReducer,
     userRecentTweets: userRecentTweetsReducer,
   },
 });
