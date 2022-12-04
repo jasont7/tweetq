@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { setSingleUser } from './redux/reducers/filterSlice';
 import UserContent from './components/UserContent';
-import { setUser } from './redux/reducers/userReducer';
+import SearchBar from './components/SearchBar';
 
 export default function App({ url }) {
 
@@ -14,16 +15,14 @@ export default function App({ url }) {
     if (page == '' || page == 'home') {
       // TODO: home page
     } else {
-      dispatch(setUser(page))
+      dispatch(setSingleUser(page))
     }
   })
 
   return (
     <div style={styles.appContainer}>
       <div style={styles.contentContainer}>
-        {/* <HideToggle /> */}
-        {/* <Header /> */}
-        {/* <SearchBar /> */}
+        <SearchBar />
         {/* { page === 'home' && <TimelineContent /> } */}
         { page !== 'home' && <UserContent /> }
       </div>

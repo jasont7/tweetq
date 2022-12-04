@@ -26,7 +26,7 @@ def _execute_query(q, max_results):
 @app.get("/search")
 async def search(
     content: str = None,
-    user: str = None,  # Ex: naval, elonmusk, etc
+    users: str = None,  # Comma-separated string of users Ex: "naval,elonmusk"
     location: str = None,  # Ex: New York, The Hague, etc
     since: str = None,  # Ex: 2022-10-01
     until: str = None,  # Ex: 2022-11-06
@@ -49,41 +49,57 @@ async def search(
 
     if content:
         q += f'{content} '
-    if user:
-        q += f'from:{user} '
+
+    if users:
+        user_list = users.split(',')
+        s = '('
+        for user in user_list[:-1]:
+            s += f'from:{user} OR '
+        s += f'from:{user_list[-1]})'
+        q += s
+
     if location:
         q += f'near:"{location}" '
+
     if since:
         q += f'since:{since} '
+
     if until:
         q += f'until:{until} '
+
     if within:
         q += f'within_time:{within} '
 
     if include_rt == True:
         q += f'filter:nativeretweets '
+
     elif include_rt == False:
         q += f'-filter:nativeretweets '
 
     if include_quote == True:
         q += f'filter:quote '
+
     elif include_quote == False:
         q += f'-filter:quote '
 
     if include_replies == True:
         q += f'filter:replies '
+
     elif include_replies == False:
         q += f'-filter:replies '
 
     if is_media == True:
         q += f'filter:media '
+
     elif is_media == False:
         q += f'-filter:media '
     
     if min_retweets:
         q += f'min_retweets:{min_retweets} '
+
     if min_faves:
         q += f'min_faves:{min_faves} '
+
     if min_replies:
         q += f'min_replies:{min_replies} '
 
