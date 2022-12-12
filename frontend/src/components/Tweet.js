@@ -80,10 +80,10 @@ const styles = {
   },
   profilePicContainer: {
     display: 'block',
-    flex: '0 0 27px',
+    flex: '0 0 35px',
   },
   profilePic: {
-    height: '1.5em',
+    height: '2em',
     borderRadius: '50%',
   },
   contentContainer: {
@@ -95,7 +95,7 @@ const styles = {
   header: {
     display: 'block',
     fontWeight: 'bold',
-    marginBottom: '2px',
+    marginBottom: '5px',
   },
   userDisplayName: {
     display: 'inline',

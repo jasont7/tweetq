@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTweets } from '../redux/reducers/tweetsSlice';
 import Tweet from './Tweet';
 
-export default function UserContent() {
+export default function Content() {
 
 	const dispatch = useDispatch();
 
@@ -29,13 +29,15 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
+    overflow: 'hidden',
     boxSizing: 'border-box',
     fontSize: '14px',
     color: '#E7E9EA',
   },
   tweetsContainer: {
     display: 'block',
-    overflowY: 'scroll',
+    overflow: 'auto',
     height: '100vh',
+    marginRight: '-15px',
   },
 }

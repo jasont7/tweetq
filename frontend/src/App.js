@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSingleUser } from './redux/reducers/filterSlice';
-import UserContent from './components/UserContent';
-import SearchBar from './components/SearchBar';
+import Content from './components/Content';
+import Header from './components/Header';
+import getURLType from './getURLType';
 
 export default function App({ url }) {
 
   const dispatch = useDispatch();
 
-  const urlObj = new URL(url);
-  const page = urlObj.pathname.replace(/\//g, "");
+  const urlType = getURLType(url);
 
   useEffect(() => {
-    if (page == '' || page == 'home') {
-      // TODO: home page
-    } else {
-      dispatch(setSingleUser(page))
+    if (urlType.type === 'home') {
+      // TODO: set users to only people you follow
+    } else if (urlType.type === 'user') {
+      dispatch(setSingleUser(urlType.user))
     }
   })
 
   return (
+    <>
+    { urlType.type !== 'invalid' &&
     <div style={styles.appContainer}>
+      <Header />
       <div style={styles.contentContainer}>
-        <SearchBar />
-        {/* { page === 'home' && <TimelineContent /> } */}
-        { page !== 'home' && <UserContent /> }
+        <Content />
       </div>
-    </div>
+    </div>}
+    </>
   );
 }
 
@@ -38,7 +40,7 @@ const styles = {
     fontSize: '14px',
     right: 0,
     top: 0,
-    width: '360px',
+    width: '365px',
     height: '100vh',
     backgroundColor: '#000000',
     color: '#FFFFFF',

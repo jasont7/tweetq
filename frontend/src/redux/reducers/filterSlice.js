@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   content: "",
-  users: [null],
+  users: [],
 }
 
 export const filterSlice = createSlice({
@@ -15,9 +15,12 @@ export const filterSlice = createSlice({
     setSingleUser(state, action) {
       state.users = [action.payload];
     },
+    setUsers(state, action) {
+      state.users = action.payload;
+    },
   },
 });
 
-export const { setContent, setSingleUser } = filterSlice.actions;
+export const { setContent, setSingleUser, setUsers } = filterSlice.actions;
 
 export default filterSlice.reducer;
