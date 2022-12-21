@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import FilterBar from './FilterBar';
+import FilterBar from './Filter/FilterBar';
 import SearchBar from './SearchBar';
 import SearchSpecifier from './SearchSpecifer';
 

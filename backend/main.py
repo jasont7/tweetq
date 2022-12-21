@@ -9,7 +9,7 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 
-MAX_RESULTS = 20
+MAX_RESULTS = 30
 
 
 def _execute_query(q, max_results):
@@ -27,17 +27,16 @@ def _execute_query(q, max_results):
 async def search(
     content: str = None,
     users: str = None,  # Comma-separated string of users Ex: "naval,elonmusk"
-    location: str = None,  # Ex: New York, The Hague, etc
     since: str = None,  # Ex: 2022-10-01
     until: str = None,  # Ex: 2022-11-06
     within: str = None,  # Ex: 2d, 3h, 5m, 30s, etc
-    include_rt: bool = None,
+    include_replies: bool = False,
     include_quote: bool = None,
-    include_replies: bool = None,
-    is_media: bool = None,  # (images, videos)
-    min_retweets: int = None,
+    include_rt: bool = None,
     min_faves: int = None,
+    min_retweets: int = None,
     min_replies: int = None,
+    location: str = None,  # Ex: New York, The Hague, etc
     max_results: int = MAX_RESULTS,
 ):
     """
@@ -58,50 +57,39 @@ async def search(
         s += f'from:{user_list[-1]})'
         q += s
 
-    if location:
-        q += f'near:"{location}" '
-
     if since:
         q += f'since:{since} '
-
     if until:
+        # add one day to include tweets posted on end date
+        until = (dt.datetime.strptime(until, '%Y-%m-%d') + dt.timedelta(days=1)).strftime('%Y-%m-%d')
         q += f'until:{until} '
-
     if within:
         q += f'within_time:{within} '
 
+    if include_replies == True:
+        q += f'filter:replies '
+    elif include_replies == False:
+        q += f'-filter:replies '
+
     if include_rt == True:
         q += f'filter:nativeretweets '
-
     elif include_rt == False:
         q += f'-filter:nativeretweets '
 
     if include_quote == True:
         q += f'filter:quote '
-
     elif include_quote == False:
         q += f'-filter:quote '
-
-    if include_replies == True:
-        q += f'filter:replies '
-
-    elif include_replies == False:
-        q += f'-filter:replies '
-
-    if is_media == True:
-        q += f'filter:media '
-
-    elif is_media == False:
-        q += f'-filter:media '
     
-    if min_retweets:
-        q += f'min_retweets:{min_retweets} '
-
     if min_faves:
         q += f'min_faves:{min_faves} '
-
+    if min_retweets:
+        q += f'min_retweets:{min_retweets} '
     if min_replies:
         q += f'min_replies:{min_replies} '
+
+    if location:
+        q += f'near:"{location}" '
 
     return _execute_query(q, max_results)
 

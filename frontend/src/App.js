@@ -22,18 +22,16 @@ export default function App({ url }) {
   return (
     <>
     { urlType.type !== 'invalid' &&
-    <div style={styles.appContainer}>
+    <div style={styles.container}>
       <Header />
-      <div style={styles.contentContainer}>
-        <Content />
-      </div>
+      <Content />
     </div>}
     </>
   );
 }
 
 const styles = {
-  appContainer: {
+  container: {
     display: 'block',
     position: 'fixed',
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
@@ -46,7 +44,4 @@ const styles = {
     color: '#FFFFFF',
     // zIndex: 999999999,
   },
-  contentContainer: {
-    position: 'relative',
-  }
 }
