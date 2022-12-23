@@ -23,8 +23,6 @@ export default function SearchSpecifier() {
       dispatch(setUsers([]));
     } else if (specId === 'current-user') {
       dispatch(setSingleUser(urlType.user));
-    } else if (specId === 'timeline') {
-      // TODO: set users to all following
     }
   }
 

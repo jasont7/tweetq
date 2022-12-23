@@ -1,13 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const defaultDays = 7;
-const startDate = new Date(Date.now() - (defaultDays * 24 * 60 * 60 * 1000)).toISOString().split('T')[0];
-const endDate = new Date().toISOString().split('T')[0];
-
 const initialState = {
   content: "",
   users: null,
-  dateRange: [startDate, endDate],
+  startDate: "",
+  endDate: "",
+  hideReplies: true,
+  minLikes: "",
+  maxLikes: "",
+  minRetweets: "",
+  maxRetweets: "",
+  minReplies: "",
+  maxReplies: "",
+  location: "",
+  within: "",
 }
 
 export const filterSlice = createSlice({
@@ -23,14 +29,44 @@ export const filterSlice = createSlice({
     setUsers(state, action) {
       state.users = action.payload;
     },
-    setDateRange(state, action) {
-      state.dateRange = action.payload;
+    setStartDate(state, action) {
+      state.startDate = action.payload;
+    },
+    setEndDate(state, action) {
+      state.endDate = action.payload;
+    },
+    setHideReplies(state, action) {
+      state.hideReplies = action.payload;
+    },
+    setMinLikes(state, action) {
+      state.minLikes = action.payload;
+    },
+    setMaxLikes(state, action) {
+      state.maxLikes = action.payload;
+    },
+    setMinRetweets(state, action) {
+      state.minRetweets = action.payload;
+    },
+    setMaxRetweets(state, action) {
+      state.maxRetweets = action.payload;
+    },
+    setMinReplies(state, action) {
+      state.minReplies = action.payload;
+    },
+    setMaxReplies(state, action) {
+      state.maxReplies = action.payload;
+    },
+    setLocation(state, action) {
+      state.location = action.payload;
+    },
+    setWithin(state, action) {
+      state.within = action.payload;
     },
   },
 });
 
-export const { 
-  setContent, setSingleUser, setUsers, setDateRange
-} = filterSlice.actions;
+export const { setContent, setSingleUser, setUsers, setStartDate, setEndDate, 
+  setHideReplies, setMinLikes, setMaxLikes, setMinRetweets, setMaxRetweets,
+  setMinReplies, setMaxReplies, setLocation, setWithin } = filterSlice.actions;
 
 export default filterSlice.reducer;

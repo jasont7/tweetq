@@ -1,11 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDateRange } from '../../redux/reducers/filterSlice';
-import { setFilterVisible } from '../../redux/reducers/filterVisibleSlice';
-
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { setEndDate, setStartDate } from '../../redux/reducers/filterSlice';
+import { setFilterVisible, setStartDateInput, setEndDateInput } from '../../redux/reducers/filterVisibleSlice';
 
 export default function TimeRange() {
 
@@ -13,17 +9,14 @@ export default function TimeRange() {
 
   const isFilterVisible = useSelector(state => state.filterVisible.isVisible);
   const filterVisibleType = useSelector(state => state.filterVisible.filterType);
+  const startDateInput = useSelector(state => state.filterVisible.startDateInput);
+  const endDateInput = useSelector(state => state.filterVisible.endDateInput);
 
-  const dateRange = useSelector(state => state.filter.dateRange);
-  const [startDate, setStartDate] = useState(new Date(dateRange[0] + 'T00:00:00'));
-  const [endDate, setEndDate] = useState(new Date(dateRange[1] + 'T00:00:00'));
-
-  const handleDateChange = () => {
-    const startDateString = startDate.toISOString().split('T')[0];
-    const endDateString = endDate.toISOString().split('T')[0];
-    dispatch(setDateRange([startDateString, endDateString]));
+  const handleUpdate = () => {
+    dispatch(setStartDate(startDateInput));
+    dispatch(setEndDate(endDateInput));
   }
-
+  
   const handleClosePopup = () => {
     dispatch(setFilterVisible({ isVisible: false, filterType: null }));
   }
@@ -35,73 +28,31 @@ export default function TimeRange() {
       <span style={styles.closePopup} onClick={handleClosePopup}>
         X
       </span>
-      <div style={styles.dateInputContainer}>
-        <DatePicker
-          renderCustomHeader={options => customDatePicker(options)}
-          selected={startDate}
-          onChange={(date) => setStartDate(date)}
+      <div style={styles.mainContainer}>
+        <input 
+          type="date" 
+          id="start" 
+          style={styles.dateInput}
+          value={startDateInput}
+          onChange={(e) => dispatch(setStartDateInput(e.target.value))}
+          min="2006-01-01"
+          max={new Date().toISOString().slice(0, 10)}
         />
-        <DatePicker
-          renderCustomHeader={options => customDatePicker(options)}
-          selected={endDate} 
-          onChange={(date) => setEndDate(date)}
+        <input 
+          type="date" 
+          id="end" 
+          style={styles.dateInput}
+          value={endDateInput}
+          onChange={(e) => dispatch(setEndDateInput(e.target.value))}
+          min="2006-01-01"
+          max={new Date().toISOString().slice(0, 10)}
         />
-        <button onClick={handleDateChange}>Update Search</button>
+        <button onClick={handleUpdate}>
+          Update Search
+        </button>
       </div>
     </div>}
     </>
-  );
-}
-
-const range = (start, stop, step) => 
-  Array.from({ length: (stop - start) / step + 1}, (_, i) => start + (i * step))
-
-const customDatePicker = (options) => {
-  const years = range(2006, new Date().getFullYear() + 1, 1);
-  const months = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December",
-  ];
-  
-  return (
-    <div
-      style={{
-        margin: 10,
-        display: "flex",
-        justifyContent: "center",
-      }}
-    >
-      <button onClick={options.decreaseMonth} disabled={options.prevMonthButtonDisabled}>
-        {"<"}
-      </button>
-      <select
-        value={options.date.getFullYear()}
-        onChange={({ target: { value } }) => options.changeYear(value)}
-      >
-        {years.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={months[options.date.getMonth()]}
-        onChange={({ target: { value } }) =>
-          options.changeMonth(months.indexOf(value))
-        }
-      >
-        {months.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-
-      <button onClick={options.increaseMonth} disabled={options.nextMonthButtonDisabled}>
-        {">"}
-      </button>
-    </div>
   );
 }
 
@@ -115,9 +66,19 @@ const styles = {
     zIndex: 1,
     borderRadius: '6px',
   },
-  dateInputContainer: {
+  mainContainer: {
     margin: '10px',
     padding: '5px',
+  },
+  dateInput: {
+    appearance: 'none',
+    color: '#758182',
+    fontSize: '14px',
+    border: '1px solid #ecf0f1',
+    background: '#ecf0f1',
+    padding: '5px',
+    display: 'inline-block !important',
+    visibility: 'visible !important',
   },
   closePopup: {
     position: 'absolute',

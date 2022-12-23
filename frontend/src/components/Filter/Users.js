@@ -13,10 +13,10 @@ export default function Users() {
 const styles = {
   usersContainer: {
     position: 'absolute',
-    width: '175px',
-    height: '250px',
+    width: '200px',
+    height: '300px',
     marginTop: '30px',
-    marginLeft: '70px',
+    marginLeft: '90px',
     backgroundColor: '#FFFFFF',
     zIndex: 100000000000,
     borderRadius: '6px',

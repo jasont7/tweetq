@@ -38,15 +38,51 @@ function buildAdvancedSearchParams(filter) {
 
   let params = {};
 
-  if (filter.content)
+  if (filter.content) {
     params.content = filter.content;
+  }
 
-  if (filter.users)
+  if (filter.users && filter.users.length > 0) {
     params.users = filter.users.join();
-  
-  if (filter.dateRange) {
-    params.since = filter.dateRange[0];
-    params.until = filter.dateRange[1];
+  }
+
+  if (filter.startDate) {
+    params.since = filter.startDate;
+  }
+  if (filter.endDate) {
+    params.until = filter.endDate;
+  }
+
+  if (filter.hideReplies == true) {
+    params.hide_replies = true;
+  }
+
+  if (filter.minLikes) {
+    params.min_faves = filter.minLikes;
+  }
+  if (filter.maxLikes) {
+    params.max_faves = filter.maxLikes;
+  }
+
+  if (filter.minRetweets) {
+    params.min_retweets = filter.minRetweets;
+  }
+  if (filter.maxRetweets) {
+    params.max_retweets = filter.maxRetweets;
+  }
+
+  if (filter.minReplies) {
+    params.min_replies = filter.minReplies;
+  }
+  if (filter.maxReplies) {
+    params.max_replies = filter.maxReplies;
+  }
+
+  if (filter.location) {
+    params.location = filter.location;
+  }
+  if (filter.within) {
+    params.within = filter.within;
   }
   
   return params;
