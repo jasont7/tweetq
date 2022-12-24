@@ -25,9 +25,14 @@ export default function TimeRange() {
     <>
     {isFilterVisible && filterVisibleType === "time-range" && 
     <div style={styles.popupContainer}>
-      <span style={styles.closePopup} onClick={handleClosePopup}>
-        X
-      </span>
+      <div style={styles.popupHeader}>
+        <p style={styles.popupName}>
+          Filter by time range
+        </p>
+        <svg style={styles.closePopup} onClick={handleClosePopup} xmlns="http://www.w3.org/2000/svg"  class="bi bi-x" viewBox="0 0 16 16">
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+      </div>
       <div style={styles.mainContainer}>
         <input 
           type="date" 
@@ -59,34 +64,45 @@ export default function TimeRange() {
 const styles = {
   popupContainer: {
     position: 'absolute',
-    width: '240px',
-    marginTop: '30px',
-    marginLeft: '-80px',
+    width: '200px',
+    height: '155px',
+    marginTop: '35px',
+    marginLeft: '-125px',
     backgroundColor: '#FFFFFF',
     zIndex: 1,
     borderRadius: '6px',
   },
+  popupHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    borderBottom: '1px solid #D8DEE4',
+  },
+  popupName: {
+    margin: '8px 16px',
+    color: '#242A30',
+    fontSize: '12px',
+    fontWeight: '600',
+  },
+  closePopup: {
+    margin: '5px 10px',
+    width: '20px',
+    height: '20px',
+    fill: '#57606a',
+    cursor: 'pointer',
+  },
   mainContainer: {
-    margin: '10px',
+    margin: '5px 10px',
     padding: '5px',
   },
   dateInput: {
-    appearance: 'none',
-    color: '#758182',
-    fontSize: '14px',
-    border: '1px solid #ecf0f1',
-    background: '#ecf0f1',
-    padding: '5px',
     display: 'inline-block !important',
-    visibility: 'visible !important',
-  },
-  closePopup: {
-    position: 'absolute',
-    marginTop: '4px',
-    marginRight: '8px',
-    right: '0',
-    color: '#000000',
-    cursor: 'pointer',
-    zIndex: 2,
+    marginBottom: '8px',
+    padding: '5px',
+    width: '110px',
+    fontSize: '14px',
+    background: '#ecf0f1',
+    color: '#758182',
+    border: '1px solid #ecf0f1',
+    borderRadius: '6px',
   },
 }

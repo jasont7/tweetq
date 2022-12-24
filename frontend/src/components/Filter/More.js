@@ -41,9 +41,14 @@ export default function More() {
     <>
     {isFilterVisible && filterVisibleType === "more" && 
     <div style={styles.popupContainer}>
-      <span style={styles.closePopup} onClick={handleClosePopup}>
-        X
-      </span>
+      <div style={styles.popupHeader}>
+        <p style={styles.popupName}>
+          More filters
+        </p>
+        <svg style={styles.closePopup} onClick={handleClosePopup} xmlns="http://www.w3.org/2000/svg"  class="bi bi-x" viewBox="0 0 16 16">
+          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+      </div>
       <div style={styles.mainContainer}>
         <div style={styles.checkboxInputContainer}>
           <input type="checkbox" 
@@ -115,11 +120,29 @@ const styles = {
     position: 'absolute',
     width: '175px',
     height: '250px',
-    marginTop: '30px',
+    marginTop: '35px',
     marginLeft: '150px',
     backgroundColor: '#FFFFFF',
     zIndex: 1,
     borderRadius: '6px',
+  },
+  popupHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    borderBottom: '1px solid #D8DEE4',
+  },
+  popupName: {
+    margin: '8px 16px',
+    color: '#242A30',
+    fontSize: '12px',
+    fontWeight: '600',
+  },
+  closePopup: {
+    margin: '5px 10px',
+    width: '20px',
+    height: '20px',
+    fill: '#57606a',
+    cursor: 'pointer',
   },
   mainContainer: {
     margin: '10px',
@@ -133,15 +156,6 @@ const styles = {
   },
   filterLabel: {
     color: '#000000',
-  },
-  closePopup: {
-    position: 'absolute',
-    marginTop: '4px',
-    marginRight: '8px',
-    right: '0',
-    color: '#000000',
-    cursor: 'pointer',
-    zIndex: 2,
   },
 }
 

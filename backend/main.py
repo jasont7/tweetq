@@ -8,7 +8,7 @@ app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
 
-MAX_RESULTS = 30
+MAX_RESULTS = 25
 
 
 def _execute_query(q, max_results):

@@ -19,18 +19,41 @@ export default function FilterBar() {
 
   return (
     <>
-      <span style={styles.filterOption} onClick={() => handleOptionClick("time-range")}>
-        Time Range ▼
-      </span>
-      <span style={styles.filterOption} onClick={() => handleOptionClick("users")}>
-        Users ▼
-      </span>
-      <span style={styles.filterOption} onClick={() => handleOptionClick("geo")}>
-        Geo ▼
-      </span>
-      <span style={styles.filterOption} onClick={() => handleOptionClick("more")}>
-        More ▼
-      </span>
+      <div style={styles.filterOption} onClick={() => handleOptionClick("time-range")}>
+        <p style={styles.filterOptionText}>
+          Time Range
+        </p>
+        <svg style={styles.downCaret} xmlns="http://www.w3.org/2000/svg" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
+      </div>
+
+      <div style={styles.filterOption} onClick={() => handleOptionClick("users")}>
+        <p style={styles.filterOptionText}>
+          Users
+        </p>
+        <svg style={styles.downCaret} xmlns="http://www.w3.org/2000/svg" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
+      </div>
+
+      <div style={styles.filterOption} onClick={() => handleOptionClick("geo")}>
+        <p style={styles.filterOptionText}>
+          Geo
+        </p>
+        <svg style={styles.downCaret} xmlns="http://www.w3.org/2000/svg" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
+      </div>
+
+      <div style={styles.filterOption} onClick={() => handleOptionClick("more")}>
+        <p style={styles.filterOptionText}>
+          More
+        </p>
+        <svg style={styles.downCaret} xmlns="http://www.w3.org/2000/svg" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+        </svg>
+      </div>
 
       {isFilterVisible && filterVisibleType === "time-range" && <TimeRange />}
       {isFilterVisible && filterVisibleType === "users" && <Users />}
@@ -42,8 +65,19 @@ export default function FilterBar() {
 
 const styles = {
   filterOption: {
-    fontWeight: '500',
-    margin: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: '0 10px',
     cursor: 'pointer',
   },
+  filterOptionText: {
+    fontWeight: '500',
+  },
+  downCaret: {
+    fill: '#E7E9EA',
+    width: '12px',
+    height: '12px',
+    marginLeft: '4px',
+  }
 }

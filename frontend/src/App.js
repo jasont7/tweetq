@@ -42,6 +42,5 @@ const styles = {
     height: '100vh',
     backgroundColor: '#000000',
     color: '#FFFFFF',
-    // zIndex: 999999999,
   },
 }

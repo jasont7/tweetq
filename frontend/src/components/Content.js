@@ -20,6 +20,7 @@ export default function Content() {
         {tweets.status === 'idle' && tweets.data.map((tweetData) => (
           <Tweet key={tweetData.id} tweetData={tweetData} />
         ))}
+        <div style={styles.emptySpace}></div>
       </div>
     </div>
   );
@@ -29,15 +30,17 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    overflow: 'hidden',
     boxSizing: 'border-box',
     fontSize: '14px',
     color: '#E7E9EA',
   },
   tweetsContainer: {
     display: 'block',
-    overflow: 'auto',
+    overflow: 'scroll',
     height: '100vh',
     marginRight: '-15px',
   },
+  emptySpace: {
+    height: '100px',
+  }
 }
