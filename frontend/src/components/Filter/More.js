@@ -1,10 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setHideReplies, setMinLikes, setMaxLikes, setMinRetweets, setMaxRetweets,
-  setMinReplies, setMaxReplies } from '../../redux/reducers/filterSlice';
-import { setFilterVisible, setHideRepliesInput, setMinLikesInput, 
-  setMaxLikesInput, setMinRetweetsInput, setMaxRetweetsInput,
-  setMinRepliesInput, setMaxRepliesInput } from '../../redux/reducers/filterVisibleSlice';
+import { setHideReplies, setLocation, setWithin } from '../../redux/reducers/filterSlice';
+import { setHideRepliesInput, setFilterVisible, setLocationInput, 
+  setWithinInput } from '../../redux/reducers/filterVisibleSlice';
 
 export default function More() {
 
@@ -13,24 +11,13 @@ export default function More() {
   const isFilterVisible = useSelector(state => state.filterVisible.isVisible);
   const filterVisibleType = useSelector(state => state.filterVisible.filterType);
   const hideRepliesInput = useSelector(state => state.filterVisible.hideRepliesInput);
-  const minLikesInput = useSelector(state => state.filterVisible.minLikesInput);
-  const maxLikesInput = useSelector(state => state.filterVisible.maxLikesInput);
-  const minRetweetsInput = useSelector(state => state.filterVisible.minRetweetsInput);
-  const maxRetweetsInput = useSelector(state => state.filterVisible.maxRetweetsInput);
-  const minRepliesInput = useSelector(state => state.filterVisible.minRepliesInput);
-  const maxRepliesInput = useSelector(state => state.filterVisible.maxRepliesInput);
+  const locationInput = useSelector(state => state.filterVisible.locationInput);
+  const withinInput = useSelector(state => state.filterVisible.withinInput);
 
   const handleUpdate = () => {
     dispatch(setHideReplies(hideRepliesInput));
-
-    dispatch(setMinLikes(minLikesInput));
-    dispatch(setMaxLikes(maxLikesInput));
-
-    dispatch(setMinRetweets(minRetweetsInput));
-    dispatch(setMaxRetweets(maxRetweetsInput));
-
-    dispatch(setMinReplies(minRepliesInput));
-    dispatch(setMaxReplies(maxRepliesInput));
+    dispatch(setLocation(locationInput));
+    dispatch(setWithin(withinInput));
   }
 
   const handleClosePopup = () => {
@@ -58,51 +45,19 @@ export default function More() {
           <label style={styles.filterLabel}>Hide Replies</label>
         </div>
 
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={minLikesInput}
-            onChange={(e) => dispatch(setMinLikesInput(e.target.value))}
-            placeholder="Min Likes"
+        <div style={styles.textInputContainer}>
+          <input type="text"
+            value={locationInput}
+            onChange={(e) => dispatch(setLocationInput(e.target.value))}
+            placeholder="Near"
           />
         </div>
 
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={maxLikesInput}
-            onChange={(e) => dispatch(setMaxLikesInput(e.target.value))}
-            placeholder="Max Likes"
-          />
-        </div>
-
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={minRetweetsInput}
-            onChange={(e) => dispatch(setMinRetweetsInput(e.target.value))}
-            placeholder="Min Retweets"
-          />
-        </div>
-
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={maxRetweetsInput}
-            onChange={(e) => dispatch(setMaxRetweetsInput(e.target.value))}
-            placeholder="Max Retweets"
-          />
-        </div>
-
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={minRepliesInput}
-            onChange={(e) => dispatch(setMinRepliesInput(e.target.value))}
-            placeholder="Min Replies"
-          />
-        </div>
-
-        <div style={styles.numberInputContainer}>
-          <input type="number"
-            value={maxRepliesInput}
-            onChange={(e) => dispatch(setMaxRepliesInput(e.target.value))}
-            placeholder="Max Replies"
+        <div style={styles.textInputContainer}>
+          <input type="text"
+            value={withinInput}
+            onChange={(e) => dispatch(setWithinInput(e.target.value))}
+            placeholder="Within"
           />
         </div>
 
@@ -118,22 +73,24 @@ export default function More() {
 const styles = {
   popupContainer: {
     position: 'absolute',
-    width: '175px',
-    height: '250px',
+    width: '200px',
+    height: '150px',
     marginTop: '35px',
-    marginLeft: '150px',
-    backgroundColor: '#FFFFFF',
+    marginLeft: '130px',
     zIndex: 1,
+    backgroundColor: '#000000',
+    color: '#E7E9EA',
+    border: '1px solid #44515b',
     borderRadius: '6px',
+    boxShadow: '0px 0px 3px 3px rgba(68,81,91,0.5)',
   },
   popupHeader: {
     display: 'flex',
     justifyContent: 'space-between',
-    borderBottom: '1px solid #D8DEE4',
+    borderBottom: '1px solid #44515b',
   },
   popupName: {
     margin: '8px 16px',
-    color: '#242A30',
     fontSize: '12px',
     fontWeight: '600',
   },
@@ -141,7 +98,7 @@ const styles = {
     margin: '5px 10px',
     width: '20px',
     height: '20px',
-    fill: '#57606a',
+    fill: '#E7E9EA',
     cursor: 'pointer',
   },
   mainContainer: {
@@ -151,11 +108,10 @@ const styles = {
   checkboxInputContainer: {
     marginBottom: '5px',
   },
-  numberInputContainer: {
+  textInputContainer: {
     marginBottom: '5px',
   },
   filterLabel: {
-    color: '#000000',
+    
   },
 }
-

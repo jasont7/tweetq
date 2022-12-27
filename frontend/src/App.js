@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSingleUser } from './redux/reducers/filterSlice';
+import { setUsers } from './redux/reducers/filterSlice';
 import Content from './components/Content';
 import Header from './components/Header';
 import getURLType from './getURLType';
@@ -15,7 +15,7 @@ export default function App({ url }) {
     if (urlType.type === 'home') {
       // TODO: set users to only people you follow
     } else if (urlType.type === 'user') {
-      dispatch(setSingleUser(urlType.user))
+      dispatch(setUsers([urlType.user]));
     }
   })
 

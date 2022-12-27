@@ -42,7 +42,7 @@ function buildAdvancedSearchParams(filter) {
     params.content = filter.content;
   }
 
-  if (filter.users && filter.users.length > 0) {
+  if (filter.users && filter.users.length) {
     params.users = filter.users.join();
   }
 

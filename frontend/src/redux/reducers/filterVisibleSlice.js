@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   isVisible: false,
   filterType: null,
+  userInput: "",
   startDateInput: "",
   endDateInput: "",
   hideRepliesInput: true,
@@ -23,6 +24,9 @@ export const filterVisibleSlice = createSlice({
     setFilterVisible(state, action) {
       state.isVisible = action.payload.isVisible;
       state.filterType = action.payload.filterType;
+    },
+    setUserInput(state, action) {
+      state.userInput = action.payload;
     },
     setStartDateInput(state, action) {
       state.startDateInput = action.payload;
@@ -60,7 +64,7 @@ export const filterVisibleSlice = createSlice({
   },
 });
 
-export const { setFilterVisible, setStartDateInput, setEndDateInput, 
+export const { setFilterVisible, setUserInput, setStartDateInput, setEndDateInput, 
   setHideRepliesInput, setMinLikesInput, setMaxLikesInput, setMinRetweetsInput, 
   setMaxRetweetsInput, setMinRepliesInput, setMaxRepliesInput,
   setLocationInput, setWithinInput } = filterVisibleSlice.actions;

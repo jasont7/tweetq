@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setFilterVisible } from '../../redux/reducers/filterVisibleSlice';
 import TimeRange from './TimeRange';
 import Users from './Users';
-import Geo from './Geo';
+import Activity from './Activity';
 import More from './More';
 
 export default function FilterBar() {
@@ -37,9 +37,9 @@ export default function FilterBar() {
         </svg>
       </div>
 
-      <div style={styles.filterOption} onClick={() => handleOptionClick("geo")}>
+      <div style={styles.filterOption} onClick={() => handleOptionClick("activity")}>
         <p style={styles.filterOptionText}>
-          Geo
+          Activity
         </p>
         <svg style={styles.downCaret} xmlns="http://www.w3.org/2000/svg" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
           <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -57,7 +57,7 @@ export default function FilterBar() {
 
       {isFilterVisible && filterVisibleType === "time-range" && <TimeRange />}
       {isFilterVisible && filterVisibleType === "users" && <Users />}
-      {isFilterVisible && filterVisibleType === "geo" && <Geo />}
+      {isFilterVisible && filterVisibleType === "activity" && <Activity />}
       {isFilterVisible && filterVisibleType === "more" && <More />}
     </>
   );
@@ -68,7 +68,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '0 10px',
+    margin: '0 5px',
     cursor: 'pointer',
   },
   filterOptionText: {

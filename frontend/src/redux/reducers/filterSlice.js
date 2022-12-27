@@ -23,11 +23,15 @@ export const filterSlice = createSlice({
     setContent(state, action) {
       state.content = action.payload;
     },
-    setSingleUser(state, action) {
-      state.users = [action.payload];
-    },
     setUsers(state, action) {
       state.users = action.payload;
+    },
+    addUser(state, action) {
+      if (!state.users.includes(action.payload))
+        state.users.push(action.payload);
+    },
+    removeUser(state, action) {
+      state.users = state.users.filter(user => user !== action.payload);
     },
     setStartDate(state, action) {
       state.startDate = action.payload;
@@ -65,7 +69,7 @@ export const filterSlice = createSlice({
   },
 });
 
-export const { setContent, setSingleUser, setUsers, setStartDate, setEndDate, 
+export const { setContent, setUsers, addUser, removeUser, setStartDate, setEndDate, 
   setHideReplies, setMinLikes, setMaxLikes, setMinRetweets, setMaxRetweets,
   setMinReplies, setMaxReplies, setLocation, setWithin } = filterSlice.actions;
 

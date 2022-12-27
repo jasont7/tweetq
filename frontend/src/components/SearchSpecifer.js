@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import getURLType from '../getURLType';
-import { setSingleUser, setUsers } from '../redux/reducers/filterSlice';
+import { setUsers } from '../redux/reducers/filterSlice';
 
 export default function SearchSpecifier() {
   // Specify what subset of accounts to search from
@@ -22,7 +22,7 @@ export default function SearchSpecifier() {
     if (specId === 'all-twitter') {
       dispatch(setUsers([]));
     } else if (specId === 'current-user') {
-      dispatch(setSingleUser(urlType.user));
+      dispatch(setUsers([urlType.user]));
     }
   }
 
@@ -57,26 +57,24 @@ const styles = {
     cursor: 'pointer',
   },
   spec1Selected: {
-    backgroundColor: '#1D9CEB',
+    backgroundColor: '#1d9ceb',
     color: '#E7E9EA',
     borderRadius: '6px 0 0 6px',
-    border: '1px solid #1D9CEB',
+    border: '1px solid #1d9ceb',
   },
   spec1Unselected: {
-    backgroundColor: '#15181C',
     color: '#E7E9EA',
     borderRadius: '6px 0 0 6px',
     border: '1px solid #44515b',
     borderRight: '1px solid transparent',
   },
   spec2Selected: {
-    backgroundColor: '#1D9CEB',
+    backgroundColor: '#1d9ceb',
     color: '#E7E9EA',
     borderRadius: '0 6px 6px 0',
-    border: '1px solid #1D9CEB',
+    border: '1px solid #1d9ceb',
   },
   spec2Unselected: {
-    backgroundColor: '#15181C',
     color: '#E7E9EA',
     borderRadius: '0 6px 6px 0',
     border: '1px solid #44515b',

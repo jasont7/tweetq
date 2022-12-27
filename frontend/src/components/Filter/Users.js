@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { } from '../../redux/reducers/filterSlice';
-import { setFilterVisible } from '../../redux/reducers/filterVisibleSlice';
+import { addUser } from '../../redux/reducers/filterSlice';
+import { setFilterVisible, setUserInput } from '../../redux/reducers/filterVisibleSlice';
 
 export default function Users() {
 
@@ -9,9 +9,14 @@ export default function Users() {
 
   const isFilterVisible = useSelector(state => state.filterVisible.isVisible);
   const filterVisibleType = useSelector(state => state.filterVisible.filterType);
+  const users = useSelector(state => state.filter.users);
+  const userInput = useSelector(state => state.filterVisible.userInput);
 
   const handleUpdate = () => {
-
+    const twitterHandleRegex = new RegExp("^[a-zA-Z0-9_]{1,15}$");
+    if (twitterHandleRegex.test(userInput)) {
+      dispatch(addUser(userInput));
+    }
   }
 
   const handleClosePopup = () => {
@@ -31,10 +36,17 @@ export default function Users() {
         </svg>
       </div>
       <div style={styles.mainContainer}>
+        <div style={styles.textInputContainer}>
+          <input type="text"
+            value={userInput}
+            onChange={(e) => dispatch(setUserInput(e.target.value))}
+            placeholder="Username"
+          />
+        </div>
 
-        <button onClick={handleUpdate}>
-          Update Search
-        </button>
+        <button onClick={handleUpdate}>Add</button>
+
+        {users.map((user) => <p style={styles.user}>{user}</p>)}
       </div>
     </div>}
     </>
@@ -47,19 +59,21 @@ const styles = {
     width: '200px',
     height: '300px',
     marginTop: '35px',
-    marginLeft: '90px',
-    backgroundColor: '#FFFFFF',
+    marginLeft: '80px',
     zIndex: 1,
+    backgroundColor: '#000000',
+    color: '#E7E9EA',
+    border: '1px solid #44515b',
     borderRadius: '6px',
+    boxShadow: '0px 0px 3px 3px rgba(68,81,91,0.5)',
   },
   popupHeader: {
     display: 'flex',
     justifyContent: 'space-between',
-    borderBottom: '1px solid #D8DEE4',
+    borderBottom: '1px solid #44515b',
   },
   popupName: {
     margin: '8px 16px',
-    color: '#242A30',
     fontSize: '12px',
     fontWeight: '600',
   },
@@ -67,11 +81,17 @@ const styles = {
     margin: '5px 10px',
     width: '20px',
     height: '20px',
-    fill: '#57606a',
+    fill: '#E7E9EA',
     cursor: 'pointer',
   },
   mainContainer: {
     margin: '10px',
     padding: '5px',
+  },
+  textInputContainer: {
+
+  },
+  user: {
+    color: 'black',
   },
 }
