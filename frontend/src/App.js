@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setMinLikes, setUsers } from './redux/reducers/filterSlice';
 import { setSearchSpecifier } from './redux/reducers/filterVisibleSlice';
 import Content from './components/Content';
 import Header from './components/Header';
+import getUrlType from './getUrlType';
 
 export default function App({ url }) {
 
   const dispatch = useDispatch();
 
-  const urlType = getURLType(url);
+  const urlType = getUrlType(url);
 
   useEffect(() => {
     if (urlType.type === 'home') {
@@ -33,27 +34,6 @@ export default function App({ url }) {
     </>
   );
 }
-
-
-function getURLType(url) {
-  const urlObj = new URL(url);
-  const page = urlObj.pathname.substring(1);
-  
-  const invalidPages = new Set([
-      'explore',
-      'notifications',
-      'messages',
-  ]);
-
-  if (page == '' || page == 'home') {
-    return {type: 'home'}
-  } else if (invalidPages.has(page) || page.includes('/')) {
-    return {type: 'invalid'}
-  } else {
-    return {type: 'user', user: page}
-  }
-}
-
 
 const styles = {
   container: {

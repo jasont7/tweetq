@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import getURLType from '../getURLType';
+import getUrlType from '../getUrlType';
 import { setUsers } from '../redux/reducers/filterSlice';
 import { setSearchSpecifier } from '../redux/reducers/filterVisibleSlice';
 
@@ -10,7 +10,7 @@ export default function SearchSpecifier() {
 
   const dispatch = useDispatch();
 
-  const urlType = getURLType(window.location.href);
+  const urlType = getUrlType(window.location.href);
   const spec1 = {text: 'All Twitter', id: 'all-twitter'};
   const spec2 = {text: 'In This User', id: 'current-user'};
 
