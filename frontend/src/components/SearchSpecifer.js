@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import getURLType from '../getURLType';
 import { setUsers } from '../redux/reducers/filterSlice';
+import { setSearchSpecifier } from '../redux/reducers/filterVisibleSlice';
 
 export default function SearchSpecifier() {
   // Specify what subset of accounts to search from
@@ -11,14 +12,12 @@ export default function SearchSpecifier() {
 
   const urlType = getURLType(window.location.href);
   const spec1 = {text: 'All Twitter', id: 'all-twitter'};
-  const spec2 = urlType.type === 'user' ? 
-    {text: 'In This User', id: 'current-user'} :
-    {text: 'Your Timeline', id: 'timeline'};
+  const spec2 = {text: 'In This User', id: 'current-user'};
 
-  const [selected, setSelected] = useState(spec2.id);
+  const selected = useSelector(state => state.filterVisible.searchSpecifier);
 
   const selectSpecifier = (specId) => {
-    setSelected(specId);
+    dispatch(setSearchSpecifier(specId));
     if (specId === 'all-twitter') {
       dispatch(setUsers([]));
     } else if (specId === 'current-user') {

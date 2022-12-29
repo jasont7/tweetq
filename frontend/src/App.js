@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUsers } from './redux/reducers/filterSlice';
+import { useDispatch } from 'react-redux';
+import { setMinLikes, setUsers } from './redux/reducers/filterSlice';
+import { setSearchSpecifier } from './redux/reducers/filterVisibleSlice';
 import Content from './components/Content';
 import Header from './components/Header';
-import getURLType from './getURLType';
 
 export default function App({ url }) {
 
@@ -14,8 +14,12 @@ export default function App({ url }) {
   useEffect(() => {
     if (urlType.type === 'home') {
       // TODO: set users to only people you follow
+      dispatch(setUsers([]));
+      dispatch(setMinLikes(500000));
+      dispatch(setSearchSpecifier('all-twitter'));
     } else if (urlType.type === 'user') {
       dispatch(setUsers([urlType.user]));
+      dispatch(setSearchSpecifier('current-user'));
     }
   })
 
@@ -29,6 +33,27 @@ export default function App({ url }) {
     </>
   );
 }
+
+
+function getURLType(url) {
+  const urlObj = new URL(url);
+  const page = urlObj.pathname.substring(1);
+  
+  const invalidPages = new Set([
+      'explore',
+      'notifications',
+      'messages',
+  ]);
+
+  if (page == '' || page == 'home') {
+    return {type: 'home'}
+  } else if (invalidPages.has(page) || page.includes('/')) {
+    return {type: 'invalid'}
+  } else {
+    return {type: 'user', user: page}
+  }
+}
+
 
 const styles = {
   container: {
