@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setEndDate, setStartDate } from '../../redux/reducers/filterSlice';
 import { setFilterVisible, setStartDateInput, setEndDateInput } from '../../redux/reducers/filterVisibleSlice';
@@ -21,10 +21,23 @@ export default function TimeRange() {
     dispatch(setFilterVisible({ isVisible: false, filterType: null }));
   }
 
+  // outside click handling code
+  const ref = useRef(null);
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      dispatch(setFilterVisible(false));
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => document.removeEventListener('click', handleClickOutside, true);
+  }, [])
+
   return (
     <>
     {isFilterVisible && filterVisibleType === "time-range" && 
-    <div style={styles.popupContainer}>
+    <div ref={ref} style={styles.popupContainer}>
+
       <div style={styles.popupHeader}>
         <p style={styles.popupName}>
           Filter by time range
@@ -33,28 +46,38 @@ export default function TimeRange() {
           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
         </svg>
       </div>
+
       <div style={styles.mainContainer}>
-        <input 
-          type="date" 
-          id="start" 
-          style={styles.dateInput}
-          value={startDateInput}
-          onChange={(e) => dispatch(setStartDateInput(e.target.value))}
-          min="2006-01-01"
-          max={new Date().toISOString().slice(0, 10)}
-        />
-        <input 
-          type="date" 
-          id="end" 
-          style={styles.dateInput}
-          value={endDateInput}
-          onChange={(e) => dispatch(setEndDateInput(e.target.value))}
-          min="2006-01-01"
-          max={new Date().toISOString().slice(0, 10)}
-        />
-        <button onClick={handleUpdate}>
-          Update Search
-        </button>
+
+        <div style={styles.dateInputContainer}>
+          <label style={styles.inputLabel}>From:</label>
+          <input 
+            type="date" 
+            id="start" 
+            style={styles.dateInput}
+            value={startDateInput}
+            onChange={(e) => dispatch(setStartDateInput(e.target.value))}
+            min="2006-01-01"
+            max={new Date().toISOString().slice(0, 10)}
+          />
+        </div>
+
+        <div style={styles.dateInputContainer}>
+          <label style={styles.inputLabel}>To:</label>
+          <input 
+            type="date" 
+            id="end" 
+            style={styles.dateInput}
+            value={endDateInput}
+            onChange={(e) => dispatch(setEndDateInput(e.target.value))}
+            min="2006-01-01"
+            max={new Date().toISOString().slice(0, 10)}
+          />
+        </div>
+
+        <div onClick={handleUpdate} style={styles.searchButton}>
+          Search
+        </div>
       </div>
     </div>}
     </>
@@ -96,15 +119,33 @@ const styles = {
     margin: '5px 10px',
     padding: '5px',
   },
-  dateInput: {
-    display: 'inline-block !important',
+  dateInputContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
     marginBottom: '8px',
+  },
+  dateInput: {
+    display: 'inline-block',
     padding: '5px',
     width: '110px',
-    fontSize: '14px',
-    background: '#ecf0f1',
-    color: '#758182',
-    border: '1px solid #ecf0f1',
+    colorScheme: 'dark',
+    border: '1px solid #44515b',
     borderRadius: '6px',
   },
+  inputLabel: {
+    marginRight: '8px',
+    fontWeight: '500',
+  },
+  searchButton: {
+    cursor: 'pointer',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: '10px',
+    padding: '4px 0px',
+    backgroundColor: '#1D9CEB',
+    color: '#E7E9EA',
+    border: '1px solid #1D9CEB',
+    borderRadius: '6px',
+  }
 }

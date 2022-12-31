@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addUser } from '../../redux/reducers/filterSlice';
+import { addUser, removeUser } from '../../redux/reducers/filterSlice';
 import { setFilterVisible, setUserInput } from '../../redux/reducers/filterVisibleSlice';
+import { Chip } from '@mui/material';
 
 export default function Users() {
 
@@ -13,9 +14,15 @@ export default function Users() {
   const userInput = useSelector(state => state.filterVisible.userInput);
 
   const handleUpdate = () => {
+    // remove initial @ from handle
+    let userInputProc = userInput;
+    if (userInput.charAt(0) == '@') {
+      userInputProc = userInput.substring(1);
+    }
+
     const twitterHandleRegex = new RegExp("^[a-zA-Z0-9_]{1,15}$");
-    if (twitterHandleRegex.test(userInput)) {
-      dispatch(addUser(userInput));
+    if (twitterHandleRegex.test(userInputProc)) {
+      dispatch(addUser(userInputProc));
     }
   }
 
@@ -23,10 +30,23 @@ export default function Users() {
     dispatch(setFilterVisible({ isVisible: false, filterType: null }));
   }
 
+  // outside click handling code
+  const ref = useRef(null);
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      dispatch(setFilterVisible(false));
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => document.removeEventListener('click', handleClickOutside, true);
+  }, [])
+
   return (
     <>
     {isFilterVisible && filterVisibleType === "users" && 
-    <div style={styles.popupContainer}>
+    <div ref={ref} style={styles.popupContainer}>
+
       <div style={styles.popupHeader}>
         <p style={styles.popupName}>
           Filter by user
@@ -35,18 +55,37 @@ export default function Users() {
           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
         </svg>
       </div>
+
       <div style={styles.mainContainer}>
+
         <div style={styles.textInputContainer}>
           <input type="text"
             value={userInput}
             onChange={(e) => dispatch(setUserInput(e.target.value))}
+            style={styles.textInput}
             placeholder="Username"
           />
+          <div onClick={handleUpdate} style={styles.addButton}>
+            Add
+          </div>
         </div>
 
-        <button onClick={handleUpdate}>Add</button>
+        <div style={styles.userChipsContainer}>
+          { users.map((user) => 
+            <Chip label={`@${user}`} key={user} onDelete={() => dispatch(removeUser(user))}
+              style={styles.userChip} sx={{
+                '& .MuiChip-deleteIcon': {
+                  width: '18px',
+                  color: '#E7E9EA',
+                },
+                '& .MuiChip-deleteIcon:hover': {
+                  color: '#FFFFFF',
+                },
+              }} />)
+          }
+          <div style={styles.emptySpace} />
+        </div>
 
-        {users.map((user) => <p style={styles.user}>{user}</p>)}
       </div>
     </div>}
     </>
@@ -55,9 +94,11 @@ export default function Users() {
 
 const styles = {
   popupContainer: {
+    display: 'flex',
+    flexDirection: 'column',
     position: 'absolute',
     width: '200px',
-    height: '300px',
+    maxHeight: '250px',
     marginTop: '35px',
     marginLeft: '80px',
     zIndex: 1,
@@ -85,13 +126,55 @@ const styles = {
     cursor: 'pointer',
   },
   mainContainer: {
-    margin: '10px',
+    overflowY: 'hidden',
+    overflowX: 'hidden',
+    maxHeight: '200px',
+    margin: '5px 10px',
     padding: '5px',
   },
   textInputContainer: {
-
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: '10px',
   },
-  user: {
-    color: 'black',
+  textInput: {
+    boxSizing: 'border-box',
+    width: '100%',
+    padding: '4px 8px',
+    fontSize: '14px',
+    backgroundColor: '#212327',
+    color: '#E7E9EA',
+    border: '1px solid #44515b',
+    borderRadius: '4px',
+    outline: 'none',
   },
+  addButton: {
+    cursor: 'pointer',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginLeft: '5px',
+    padding: '4px 8px',
+    backgroundColor: '#1D9CEB',
+    color: '#E7E9EA',
+    border: '1px solid #1D9CEB',
+    borderRadius: '4px',
+  },
+  userChipsContainer: {
+    maxHeight: '175px',
+    width: '100%',
+    overflowY: 'scroll',
+    paddingRight: '20px',
+    boxSizing: 'content-box',
+  },
+  userChip: {
+    marginBottom: '5px',
+    marginRight: '5px',
+    backgroundColor: '#3B3B3B',
+    color: '#E7E9EA',
+    fontWeight: '600',
+  },
+  emptySpace: {
+    height: '10px',
+  }
 }

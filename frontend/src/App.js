@@ -20,6 +20,7 @@ export default function App({ url }) {
       dispatch(setSearchSpecifier('all-twitter'));
     } else if (urlType.type === 'user') {
       dispatch(setUsers([urlType.user]));
+      dispatch(setMinLikes(0));
       dispatch(setSearchSpecifier('current-user'));
     }
   })
@@ -47,5 +48,6 @@ const styles = {
     height: '100vh',
     backgroundColor: '#000000',
     color: '#FFFFFF',
+    borderLeft: '1px solid #44515b',
   },
 }

@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMinLikes, setMaxLikes, setMinRetweets, setMaxRetweets,
   setMinReplies, setMaxReplies } from '../../redux/reducers/filterSlice';
 import { setFilterVisible, setMinLikesInput, 
   setMaxLikesInput, setMinRetweetsInput, setMaxRetweetsInput,
   setMinRepliesInput, setMaxRepliesInput } from '../../redux/reducers/filterVisibleSlice';
+import { createUseStyles } from 'react-jss';
 
 export default function Activity() {
 
   const dispatch = useDispatch();
+  const classes = useStyles();
 
   const isFilterVisible = useSelector(state => state.filterVisible.isVisible);
   const filterVisibleType = useSelector(state => state.filterVisible.filterType);
@@ -34,10 +36,23 @@ export default function Activity() {
     dispatch(setFilterVisible({ isVisible: false, filterType: null }));
   }
 
+  // outside click handling code
+  const ref = useRef(null);
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      dispatch(setFilterVisible(false));
+    }
+  }
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => document.removeEventListener('click', handleClickOutside, true);
+  }, [])
+
   return (
     <>
     {isFilterVisible && filterVisibleType === "activity" && 
-    <div style={styles.popupContainer}>
+    <div ref={ref} style={styles.popupContainer}>
+
       <div style={styles.popupHeader}>
         <p style={styles.popupName}>
           Filter by activity
@@ -46,58 +61,64 @@ export default function Activity() {
           <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
         </svg>
       </div>
+
       <div style={styles.mainContainer}>
+
         <div style={styles.numberInputContainer}>
+          <label style={styles.inputLabel}>Likes:</label>
           <input type="number"
             value={minLikesInput}
             onChange={(e) => dispatch(setMinLikesInput(e.target.value))}
-            placeholder="Min Likes"
+            className={classes.numberInput}
+            placeholder="Min"
           />
-        </div>
-
-        <div style={styles.numberInputContainer}>
+          <label>&nbsp;-&nbsp;</label>
           <input type="number"
             value={maxLikesInput}
             onChange={(e) => dispatch(setMaxLikesInput(e.target.value))}
-            placeholder="Max Likes"
+            className={classes.numberInput}
+            placeholder="Max"
           />
         </div>
 
         <div style={styles.numberInputContainer}>
+          <label style={styles.inputLabel}>RT's:</label>
           <input type="number"
             value={minRetweetsInput}
             onChange={(e) => dispatch(setMinRetweetsInput(e.target.value))}
-            placeholder="Min Retweets"
+            className={classes.numberInput}
+            placeholder="Min"
           />
-        </div>
-
-        <div style={styles.numberInputContainer}>
+          <label>&nbsp;-&nbsp;</label>
           <input type="number"
             value={maxRetweetsInput}
             onChange={(e) => dispatch(setMaxRetweetsInput(e.target.value))}
-            placeholder="Max Retweets"
+            className={classes.numberInput}
+            placeholder="Max"
           />
         </div>
 
         <div style={styles.numberInputContainer}>
+          <label style={styles.inputLabel}>Replies:</label>
           <input type="number"
             value={minRepliesInput}
             onChange={(e) => dispatch(setMinRepliesInput(e.target.value))}
-            placeholder="Min Replies"
+            className={classes.numberInput}
+            placeholder="Min"
           />
-        </div>
-
-        <div style={styles.numberInputContainer}>
+          <label>&nbsp;-&nbsp;</label>
           <input type="number"
             value={maxRepliesInput}
             onChange={(e) => dispatch(setMaxRepliesInput(e.target.value))}
-            placeholder="Max Replies"
+            className={classes.numberInput}
+            placeholder="Max"
           />
         </div>
 
-        <button onClick={handleUpdate}>
-          Update Search
-        </button>
+        <div onClick={handleUpdate} style={styles.searchButton}>
+          Search
+        </div>
+
       </div>
     </div>}
     </>
@@ -107,10 +128,10 @@ export default function Activity() {
 const styles = {
   popupContainer: {
     position: 'absolute',
-    width: '200px',
-    height: '250px',
+    width: '225px',
+    height: '185px',
     marginTop: '35px',
-    marginLeft: '0px',
+    marginLeft: '-20px',
     zIndex: 1,
     backgroundColor: '#000000',
     color: '#E7E9EA',
@@ -136,14 +157,54 @@ const styles = {
     cursor: 'pointer',
   },
   mainContainer: {
-    margin: '10px',
+    margin: '5px 7px',
     padding: '5px',
   },
   numberInputContainer: {
-    marginBottom: '5px',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: '8px',
   },
-  filterLabel: {
-    color: '#000000',
+  inputLabel: {
+    marginRight: '6px',
+    fontSize: '12px',
+    fontWeight: '500',
+  },
+  searchButton: {
+    cursor: 'pointer',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: '10px',
+    padding: '4px 0px',
+    backgroundColor: '#1D9CEB',
+    color: '#E7E9EA',
+    border: '1px solid #1D9CEB',
+    borderRadius: '6px',
   },
 }
 
+const useStyles = createUseStyles({
+  numberInput: {
+    boxSizing: 'border-box',
+    width: '100%',
+    padding: '4px 8px',
+    fontSize: '14px',
+    backgroundColor: '#212327',
+    color: '#E7E9EA',
+    border: '1px solid #44515b',
+    borderRadius: '4px',
+    outline: 'none',
+    '&::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: '0px',
+    },
+    '&::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: '0px',
+    },
+    '&[type=number]': {
+      '-moz-appearance': 'textfield',
+    },
+  },
+})
