@@ -10,10 +10,13 @@ export default function getUrlType(url) {
   ]);
 
   if (page == '' || page == 'home') {
-    return {type: 'home'}
-  } else if (invalidPages.has(page) || page.includes('/')) {
-    return {type: 'invalid'}
-  } else {
-    return {type: 'user', user: page}
+    return {type: 'home'};
   }
+
+  if (!invalidPages.has(page) || page.includes('/status')) {
+    const user = page.split('/')[0];
+    return {type: 'user', user: user};
+  }
+  
+  return {type: 'invalid'};
 }

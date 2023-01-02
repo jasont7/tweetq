@@ -160,7 +160,7 @@ const useStyles = createUseStyles({
     textDecoration: 'none',
     color: '#E7E9EA',
     '&:hover': {
-      textDecoration: 'solid underline #E7E9EA 1px',
+      textDecoration: 'solid underline #E7E9EA 1.5px',
     },
   },
   userHandle: {
