@@ -7,6 +7,7 @@ export default function getUrlType(url) {
     'explore',
     'notifications',
     'messages',
+    'search',
   ]);
 
   if (page == '' || page == 'home') {

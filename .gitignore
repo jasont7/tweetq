@@ -15,3 +15,6 @@ yarn-debug.log*
 yarn-error.log*
 .netlify
 .env
+
+backend/package
+backend/deployment-package.zip

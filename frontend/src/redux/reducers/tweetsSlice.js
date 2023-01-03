@@ -89,7 +89,8 @@ function buildAdvancedSearchParams(filter) {
 }
 
 async function fetchAdvancedSearch(params) {
-  const url = `http://localhost:8000/search?`;
+  // const url = `http://localhost:8000/search?`;
+  const url = `https://vybriq1a51.execute-api.us-west-2.amazonaws.com/search?`;
   const response = await fetch(url + new URLSearchParams(params));
   const data = await response.json();
   return data;
