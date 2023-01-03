@@ -19,3 +19,4 @@ yarn-error.log*
 backend/package
 backend/deployment-package.zip
 backend/__pycache__
+frontend/public/content.js.LICENSE.txt
