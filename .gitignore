@@ -18,3 +18,4 @@ yarn-error.log*
 
 backend/package
 backend/deployment-package.zip
+backend/__pycache__
