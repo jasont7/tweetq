@@ -1,8 +1,13 @@
 {
-  "name": "ReactJS Chrome Extension",
-  "description": "Using ReactJS to build a Chrome Extension",
-  "version": "0.1.0",
+  "name": "tweetQ — Enhanced Twitter Search",
+  "description": "Streamline your Twitter experience and quickly discover the most relevant tweets using powerful filtering tools.",
+  "version": "1.0",
   "manifest_version": 3,
+  "icons": {
+    "16": "tweetq_icon.png",
+    "48": "tweetq_icon.png",
+    "128": "tweetq_icon.png"
+  },
   "content_scripts": [
     {
       "matches": ["https://twitter.com/*"],
