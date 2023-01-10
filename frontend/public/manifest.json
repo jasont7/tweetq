@@ -1,7 +1,7 @@
 {
   "name": "tweetQ — Enhanced Twitter Search",
   "description": "Streamline your Twitter experience and quickly discover the most relevant tweets using powerful filtering tools.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "manifest_version": 3,
   "icons": {
     "16": "tweetq_icon.png",
