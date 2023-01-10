@@ -23,7 +23,7 @@ export default function Tweet({ tweetData }) {
     string = string.replace(/\btwitter.com\S+/g, '');
 
     // wrap @ tags and hashtags with <span>
-    let tags = string.match(/\@[A-Za-z\d]+|\#[A-Za-z\d]+/g);
+    let tags = string.match(/\@[A-Za-z\d_]+|\#[A-Za-z\d]+/g);
     if (tags) {
       for (let tag of tags) {
         string = string.replace(tag, `<span>${tag}</span>`);
