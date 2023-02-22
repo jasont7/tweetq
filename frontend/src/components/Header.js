@@ -14,7 +14,7 @@ export default function Header() {
 
       <div style={styles.row1}>
         <SearchBar />
-        <SearchSpecifier />
+        {/* <SearchSpecifier /> */}
       </div>
       <div style={styles.row2}>
         <FilterBar />
@@ -56,7 +56,7 @@ const styles = {
     justifyContent: 'space-evenly',
     color: '#E7E9EA',
     marginTop: '8px',
-    borderRadius: '6px',
+    borderRadius: 20,
     border: '1px solid #44515b',
   },
 }

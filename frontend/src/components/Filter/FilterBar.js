@@ -68,7 +68,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: '0 5px',
+    margin: '0 3px',
     cursor: 'pointer',
   },
   filterOptionText: {
