@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getTweets } from '../redux/reducers/tweetsSlice';
+import { getUsers } from '../redux/reducers/usersSlice';
 import Tweet from './Tweet';
 import Loader from './Loader';
 
@@ -15,6 +16,7 @@ export default function Content() {
 
   useEffect(() => {
     dispatch(getTweets(filter));
+    dispatch(getUsers(filter.content));
     triggerLoaderRerender(loaderKey + 1);
   }, [filter])
 
