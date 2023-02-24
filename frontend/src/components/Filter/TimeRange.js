@@ -90,7 +90,7 @@ const styles = {
     width: '200px',
     height: '155px',
     marginTop: '35px',
-    marginLeft: '-125px',
+    marginLeft: '20px',
     zIndex: 1,
     backgroundColor: '#000000',
     color: '#E7E9EA',

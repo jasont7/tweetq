@@ -12,10 +12,9 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(async () => {
 })
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
-  async (details) => {
-    let tab = await getCurrentTab();
+  (details) => {
     if (details.url.startsWith("https://api.twitter.com/1.1")) {
-      chrome.tabs.sendMessage(tab.id,
+      chrome.tabs.sendMessage(details.tabId,
         {message: "request_headers", payload: details.requestHeaders}
       );
     }

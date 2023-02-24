@@ -65,9 +65,9 @@ export default function Users() {
             style={styles.textInput}
             placeholder="Username"
           />
-          <div onClick={handleUpdate} style={styles.addButton}>
+          {/* <div onClick={handleUpdate} style={styles.addButton}>
             Add
-          </div>
+          </div> */}
         </div>
 
         <div style={styles.userChipsContainer}>
@@ -83,7 +83,6 @@ export default function Users() {
                 },
               }} />)
           }
-          <div style={styles.emptySpace} />
         </div>
 
       </div>
@@ -97,10 +96,10 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
-    width: '200px',
+    width: '220px',
     maxHeight: '250px',
     marginTop: '35px',
-    marginLeft: '80px',
+    marginLeft: '-100px',
     zIndex: 1,
     backgroundColor: '#000000',
     color: '#E7E9EA',
@@ -141,7 +140,7 @@ const styles = {
   textInput: {
     boxSizing: 'border-box',
     width: '100%',
-    padding: '4px 8px',
+    padding: '6px 10px',
     fontSize: '14px',
     backgroundColor: '#212327',
     color: '#E7E9EA',
@@ -149,17 +148,17 @@ const styles = {
     borderRadius: '4px',
     outline: 'none',
   },
-  addButton: {
-    cursor: 'pointer',
-    fontWeight: '500',
-    textAlign: 'center',
-    marginLeft: '5px',
-    padding: '4px 8px',
-    backgroundColor: '#1D9CEB',
-    color: '#E7E9EA',
-    border: '1px solid #1D9CEB',
-    borderRadius: '4px',
-  },
+  // addButton: {
+  //   cursor: 'pointer',
+  //   fontWeight: '500',
+  //   textAlign: 'center',
+  //   marginLeft: '5px',
+  //   padding: '5px 8px',
+  //   backgroundColor: '#1D9CEB',
+  //   color: '#E7E9EA',
+  //   border: '1px solid #1D9CEB',
+  //   borderRadius: '2em',
+  // },
   userChipsContainer: {
     maxHeight: '175px',
     width: '100%',
@@ -170,11 +169,8 @@ const styles = {
   userChip: {
     marginBottom: '5px',
     marginRight: '5px',
-    backgroundColor: '#3B3B3B',
+    backgroundColor: '#212327',
     color: '#E7E9EA',
-    fontWeight: '600',
+    fontWeight: '500',
   },
-  emptySpace: {
-    height: '10px',
-  }
 }

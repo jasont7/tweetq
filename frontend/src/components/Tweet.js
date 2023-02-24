@@ -2,7 +2,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import QuoteTweet from './QuoteTweet';
 
-export default function Tweet({ tweetData }) {
+export default function Tweet({ tweetData, index, usersLength }) {
 
   const classes = useStyles();
 
@@ -39,6 +39,10 @@ export default function Tweet({ tweetData }) {
   }
 
   return (
+    <>
+    { index === 0 && usersLength > 1 && 
+      <span className={classes.title}>Tweets</span> }
+    
     <a href={tweetData.url} className={classes.contentLink}>
       <div className={classes.container}>
 
@@ -119,10 +123,20 @@ export default function Tweet({ tweetData }) {
         </div>
       </div>
     </a>
+    </>
   );
 }
 
 const useStyles = createUseStyles({
+  title: {
+    display: 'inline-block',
+    paddingTop: '10px',
+    paddingBottom: '4px',
+    paddingLeft: '10px',
+    fontSize: '15px',
+    fontWeight: '600',
+    color: 'rgb(91, 112, 131)',
+  },
   contentLink: {
     textDecoration: 'none',
   },

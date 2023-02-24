@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authTokens } from '../..';
 
 const initialState = {
-  status: 'loading',
   data: [],
 }
 
@@ -12,11 +11,9 @@ export const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUsers.pending, (state) => {
-        state.status = 'loading';
         state.data = [];
       })
       .addCase(getUsers.fulfilled, (state, action) => {
-        state.status = 'idle';
         state.data = action.payload;
       });
   },
@@ -43,7 +40,7 @@ async function fetchSearchUsers(query) {
     },
   });
   const data = await response.json();
-  return data;
+  return data.users;
 }
 
 export default usersSlice.reducer;
