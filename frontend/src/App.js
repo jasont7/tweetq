@@ -18,7 +18,7 @@ export default function App({ url }) {
     if (urlType.type === 'home') {
       // TODO: set users to only people you follow
       dispatch(setUsers([]));
-      dispatch(setMinLikes(500000));
+      dispatch(setMinLikes(0));
       dispatch(setSearchSpecifier('all-twitter'));
     } else if (urlType.type === 'user') {
       dispatch(setUsers([urlType.user]));

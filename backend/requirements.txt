@@ -7,6 +7,6 @@ lxml==4.9.1
 protobuf==4.21.7
 PySocks==1.7.1
 requests==2.28.1
-snscrape==0.5.0.20230113
+snscrape @ git+https://github.com/JustAnotherArchivist/snscrape.git@786815dd05681e2421cd03aa9acf5ab5c773bce9
 soupsieve==2.3.2.post1
 urllib3==1.26.12

@@ -65,9 +65,9 @@ export default function Users() {
             style={styles.textInput}
             placeholder="Username"
           />
-          {/* <div onClick={handleUpdate} style={styles.addButton}>
+          <div onClick={handleUpdate} style={styles.addButton}>
             Add
-          </div> */}
+          </div>
         </div>
 
         <div style={styles.userChipsContainer}>
@@ -148,17 +148,17 @@ const styles = {
     borderRadius: '4px',
     outline: 'none',
   },
-  // addButton: {
-  //   cursor: 'pointer',
-  //   fontWeight: '500',
-  //   textAlign: 'center',
-  //   marginLeft: '5px',
-  //   padding: '5px 8px',
-  //   backgroundColor: '#1D9CEB',
-  //   color: '#E7E9EA',
-  //   border: '1px solid #1D9CEB',
-  //   borderRadius: '2em',
-  // },
+  addButton: {
+    cursor: 'pointer',
+    fontWeight: '500',
+    textAlign: 'center',
+    marginLeft: '5px',
+    padding: '6px 8px',
+    backgroundColor: '#1D9CEB',
+    color: '#E7E9EA',
+    border: '1px solid #1D9CEB',
+    borderRadius: '4px',
+  },
   userChipsContainer: {
     maxHeight: '175px',
     width: '100%',
