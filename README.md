@@ -1,5 +1,8 @@
 # TweetQ (discontinued)
 
+<img src="https://github.com/jasont7/tweetq/assets/26695415/4194c9e3-a027-4024-98f1-fbce6905bd83" width="600">
+<br><br>
+
 This was a small side-project of mine in which I set out to build a Twitter sidebar Chrome extension. I drew inspiration from [Twemex](https://tweethunter.io/twemex) (another Twitter sidebar extension), but found that it wasn't granular enough for my liking w.r.t. filtering/sorting through tweets, so I decided to create my own version.
 
 The goal of TweetQ was to provide an interface where users can easily filter through tweets via number of likes/comments/retweets, date range, author(s), words/phrases, etc. This was in order to combat against the cluttered and disparate system of viewing tweets. You're either on the home page, where you see a never-ending list of tweets by people you follow (or that are simply recommended to you by 'the algorithm'), or you are on someone's profile page in which you can only see their most recent activity.
