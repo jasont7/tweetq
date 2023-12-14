@@ -1,4 +1,4 @@
-# [TweetQ](https://chromewebstore.google.com/detail/tweetq-%E2%80%94-enhanced-twitter/kjfhaejeeiomoelkedadbifpincamjde?pli=1) (discontinued)
+# [tweetQ](https://chromewebstore.google.com/detail/tweetq-%E2%80%94-enhanced-twitter/kjfhaejeeiomoelkedadbifpincamjde?pli=1) (discontinued)
 
 <img src="https://github.com/jasont7/tweetq/assets/26695415/4194c9e3-a027-4024-98f1-fbce6905bd83" width="600">
 <br><br>
